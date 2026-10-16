@@ -1,4 +1,3 @@
--------------INTRODUCTION-----------------
 This is a class project for Web Applications Development I
 The project is starting with one other person, who will be a contributor on the repo
 
