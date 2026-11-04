@@ -3,7 +3,7 @@ The project is starting with one other person, who will be a contributor on the 
 
 
 # Nanashi Merchandising Co.
-  this webpage will serve as a front end prototype for the store inventory and tracking. (name is pending approval, using this as a place holder)
+  this webpage will serve as a front end prototype for the store inventory and tracking.
 
 
 
