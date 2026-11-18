@@ -37,7 +37,7 @@ class ProductItem {
 
 //keeping Products[0] as placeholder, always
 const Products = [
-    ProductItem(
+    new ProductItem(
         'Item Name',
         [
             {
@@ -51,13 +51,13 @@ const Products = [
 
 //Adding items to store, default to placeholder if field is empty
 function addProduct(
+    newName = 'Item Name',
     newImages = [
-        {
-            src:'assets/images/placeholder.png', 
-            alt:'Placeholder Picture'
-        }
+        [
+            'assets/images/placeholder.png', 
+            'Placeholder Picture'
+        ]
     ], 
-    newName = 'Item Name', 
     newDescription = 'Item Description'
 ) 
 {
@@ -65,25 +65,25 @@ function addProduct(
     {
         for (const j of Products) //for all Products
             {
-            for (const k of Products[j].images) //for all Products [j] images
+            for (const k of Products[j].ProductItem.images) //for all Products [j] images
                 {
-                if (Products[j].images[k].src == i.src) {
-                    console.log('This image already exists', images[i])
+                if (Products[j].ProductItem.images[k][0] == i[0]) {
+                    console.log(`Image ${newImages[0]} already exists`)
                 } //if new image src matches an already existing images src, error
-                else if (Products[j].name == newName) {
+                else if (Products[j].ProductItem.name == newName) {
                     console.log(`A Product named ${newName} already exists`)
                 }// if new name matches an old Product name, error
-                else if (Products[j].description == newDescription) {
+                else if (Products[j].ProductItem.description == newDescription) {
                     console.log(`Somehow, this description already exists for ${Products[j].name}`)
                 }// if new description matches an old description, error
             }
         }
     }
     if (newImages == [
-        {
-            src:'assets/images/placeholder.png', 
-            alt:'Placeholder Picture'
-        }
+        [
+            'assets/images/placeholder.png', 
+            'Placeholder Picture'
+        ]
     ] &&
     newName == 'Item Name' &&
     newDescription == 'Item Description'
@@ -102,7 +102,16 @@ function addProduct(
     }//add new item
 }
 
-
+addProduct(
+    'Item Name',
+    [
+        [
+            'assets/images/placeholder.png', 
+            'Placeholder Picture'
+        ]
+    ],
+    'Item Description'
+)
 //List of Companies
 //Format of Company
 //Company[
