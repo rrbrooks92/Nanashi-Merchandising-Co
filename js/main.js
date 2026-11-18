@@ -19,9 +19,9 @@ class ProductItem {
         images = [], 
         description
     ) 
-    {
-        this.images = images; //nested images srcs and alts
+    { 
         this.name = name;
+        this.images = images; //nested images srcs and alts
         this.description = description;
     }
 
@@ -53,65 +53,54 @@ const Products = [
 function addProduct(
     newName = 'Item Name',
     newImages = [
-        [
-            'assets/images/placeholder.png', 
-            'Placeholder Picture'
-        ]
+        {
+            src: 'assets/images/placeholder.png', 
+            alt: 'Placeholder Picture'
+        }
     ], 
     newDescription = 'Item Description'
 ) 
 {
-    for (const i of newImages) //for all addProduct images
-    {
-        for (const j of Products) //for all Products
-            {
-            for (const k of Products[j].ProductItem.images) //for all Products [j] images
-                {
-                if (Products[j].ProductItem.images[k][0] == i[0]) {
-                    console.log(`Image ${newImages[0]} already exists`)
-                } //if new image src matches an already existing images src, error
-                else if (Products[j].ProductItem.name == newName) {
-                    console.log(`A Product named ${newName} already exists`)
-                }// if new name matches an old Product name, error
-                else if (Products[j].ProductItem.description == newDescription) {
-                    console.log(`Somehow, this description already exists for ${Products[j].name}`)
-                }// if new description matches an old description, error
+    for (const newImage of newImages) {
+        for (const product of Products) {
+            for (const image of product.images) {
+                if (newImage.src === image.src && newName === Products[0].name && newDescription === Products[0].description) {
+                    console.log('This is the placeholder product, please input arguments')
+                }
+                else if (newImage.src === image.src) {
+                    console.log(`Image ${newImages[0].src} Already Exists`);
+                }
+                else if (newName === Products[0].name) {
+                    console.log(`Product ${newName} Already Exists`);
+                }
+                else if (newDescription === Products[0].description) {
+                    console.log(`Description ${newDescription} Already Exists`);
+                }
+                else {
+                    Products.push(
+                        new ProductItem(
+                            newName, 
+                            newImages, 
+                            newDescription
+                        )
+                    );
+                }//add new item
             }
         }
     }
-    if (newImages == [
-        [
-            'assets/images/placeholder.png', 
-            'Placeholder Picture'
-        ]
-    ] &&
-    newName == 'Item Name' &&
-    newDescription == 'Item Description'
-    )
-    {
-        console.log('This matches the Placeholder Product, which already exists')
-    }// if it is the same as a placeholder, it doesn't save
-    else {
-        Products.push(
-            ProductItem(
-                newName, 
-                newImages, 
-                newDescription
-            )
-        );
-    }//add new item
 }
 
 addProduct(
-    'Item Name',
+    'Item',
     [
-        [
-            'assets/images/placeholder.png', 
-            'Placeholder Picture'
-        ]
+        {
+            src: 'dave', 
+            alt: 'claude'
+        }
     ],
-    'Item Description'
-)
+    'Description'
+);
+
 //List of Companies
 //Format of Company
 //Company[
