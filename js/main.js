@@ -51,24 +51,55 @@ const Products = [
 
 //Adding items to store, default to placeholder if field is empty
 function addProduct(
-    images = [
+    newImages = [
         {
             src:'assets/images/placeholder.png', 
             alt:'Placeholder Picture'
         }
     ], 
-    name = 'Item Name', 
-    description = 'Item Description'
+    newName = 'Item Name', 
+    newDescription = 'Item Description'
 ) 
 {
-    //if () // if it is the same as a placeholder, it doesn't save
-    Products.push(
-        ProductItem(
-            name, 
-            images, 
-            description
-        )
-    );
+    for (const i of newImages) //for all addProduct images
+    {
+        for (const j of Products) //for all Products
+            {
+            for (const k of Products[j].images) //for all Products [j] images
+                {
+                if (Products[j].images[k].src == i.src) {
+                    console.log('This image already exists', images[i])
+                } //if new image src matches an already existing images src, error
+                else if (Products[j].name == newName) {
+                    console.log(`A Product named ${newName} already exists`)
+                }// if new name matches an old Product name, error
+                else if (Products[j].description == newDescription) {
+                    console.log(`Somehow, this description already exists for ${Products[j].name}`)
+                }// if new description matches an old description, error
+            }
+        }
+    }
+    if (newImages == [
+        {
+            src:'assets/images/placeholder.png', 
+            alt:'Placeholder Picture'
+        }
+    ] &&
+    newName == 'Item Name' &&
+    newDescription == 'Item Description'
+    )
+    {
+        console.log('This matches the Placeholder Product, which already exists')
+    }// if it is the same as a placeholder, it doesn't save
+    else {
+        Products.push(
+            ProductItem(
+                newName, 
+                newImages, 
+                newDescription
+            )
+        );
+    }//add new item
 }
 
 
