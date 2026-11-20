@@ -1,0 +1,25 @@
+#shopping-products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    padding: 1rem;
+}
+
+#shopping-products .Product {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#shopping-products .Product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    #shopping-products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
