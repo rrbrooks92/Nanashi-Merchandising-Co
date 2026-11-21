@@ -56,18 +56,6 @@ function addProduct(newName, newImages, newDescription) {
         return;
 }
 
-const imageExists = Products.some(product =>
-    product.images.some(image => 
-        newImages.some(newImage => newImage.src === image.src),
-
-)
-);
-
-if (imageExists) {
-    console.log(`Image ${newImages[0].src} already exists`);
-    return;
-}
-
 const productExists = Products.some(product => 
     product.name === newName
 );
@@ -83,9 +71,9 @@ const product = new ProductItem(newName, newImages, newDescription);
 }
 
 
-//this one renders it. i added a shopping-products id to the html on your element, so it should work now.
+//Render a product on the main-page catalog.
 function renderProduct(product) {
-    const list = document.querySelector('#shopping-products');
+    const list = document.querySelector('#main-products');
     const item = document.createElement('li');
     item.className = 'Product';
     const image = document.createElement('img');
@@ -147,31 +135,16 @@ function renderProduct(product) {
 }
 */
 
-const newProducts = [
-    {
-        name: 'First Item',
-        images: [
-            { src: 'assets/images/1402431.png', alt: 'First Item' }
-        ],
-        description: 'First description'
-    },
-    {
-        name: 'Second Item',
-        images: [
-            { src: 'assets/images/1402431.png', alt: 'Second Item' }
-        ],
-        description: 'Second description'
-    }
-];
+const newProducts = [];
 
 for (const product of newProducts) {
     addProduct(product.name, product.images, product.description);
 }
 // this is for manually adding products, i threw some pictures in to test it, we can delete them later.
 addProduct(
-    'First Item',
-    [{ src: 'assets/images/1402431.png', alt: 'First Item' }],
-    'First description'
+    'Test Alpha',
+    [{ src: 'assets/images/1402431.png', alt: 'Alert.' }],
+    'this is a regularly scheduled broadcast of the emergency alert system. this is only a test. if this had been an actual emergency, you would have been instructed where to tune in your area for news and official information.'
 );
 
 addProduct(
@@ -185,7 +158,7 @@ addProduct(
     'Third description'
 );
 addProduct(
-    'Fourth Item',
+    'The Fourth Wah.',
     [{ src: 'assets/images/1251757.jpg', alt: 'The Fourth Wah.' }],
     'Fourth description'
 );
