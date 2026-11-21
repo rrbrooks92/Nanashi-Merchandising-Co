@@ -186,7 +186,7 @@ addProduct(
 );
 addProduct(
     'Fourth Item',
-    [{ src: 'assets/images/1251757.jpg', alt: 'Fourth Item' }],
+    [{ src: 'assets/images/1251757.jpg', alt: 'The Fourth Wah.' }],
     'Fourth description'
 );
 // the breakpoint you set up for the grid is working perfectly. 
