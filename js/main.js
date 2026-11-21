@@ -74,6 +74,9 @@ const product = new ProductItem(newName, newImages, newDescription);
 //Render a product on the main-page catalog.
 function renderProduct(product) {
     const list = document.querySelector('#main-products');
+        if (!list) {
+            return;
+        }
     const item = document.createElement('li');
     item.className = 'Product';
     const image = document.createElement('img');
@@ -87,9 +90,14 @@ function renderProduct(product) {
     const description = document.createElement('p');
     description.textContent = product.description;
 
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.textContent = 'Add to Cart';
+    addButton.addEventListener('click', () => addToCart(product));
     item.appendChild(image);
     item.appendChild(name);
     item.appendChild(description);
+    item.appendChild(addButton);
     list.appendChild(item);
 }
 
@@ -169,6 +177,62 @@ addProduct(
     'Fifth description'
 );
 
+const CART_STORAGE_KEY = 'nanashi_cart';
+
+function addToCart(product) {
+    const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
+    const existingItem = cart.find(item => item.name === product.name);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: product.name,
+            images: product.images,
+            description: product.description,
+            alt: product.images[0].alt,
+            quantity: 1
+        });
+    }
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+}
+
+function renderCart() {
+    const list = document.querySelector('#cart-items');
+    if (!list) {
+        return;
+    }
+    const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
+    const emptyMessage = document.querySelector('#empty-cart');
+    list.replaceChildren();
+
+    cart.forEach(item => {
+        const row = document.createElement('li');
+
+        const image = document.createElement('img');
+        image.src = '../${item.images[0].src}';
+        image.alt = item.alt;
+
+        const name = document.createElement('h2');
+        name.textContent = item.name;
+
+        const description = document.createElement('p');
+        description.textContent = item.description;
+
+        const quantity = document.createElement('p');
+        quantity.textContent = `Quantity: ${item.quantity}`;
+        
+        row.appendChild(image);
+        row.appendChild(name);
+        row.appendChild(description);
+        row.appendChild(quantity);
+        list.appendChild(row);
+    });
+    if (emptyMessage) {
+        emptyMessage.hidden = cart.length > 0;
+    }
+}
+
+renderCart();
 //List of Companies
 //Format of Company
 //Company[
