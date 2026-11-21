@@ -15,11 +15,13 @@
 
 class ProductItem {
     constructor(
+        id,
         name, 
         images = [], 
         description
     ) 
     { 
+        this.id = id;
         this.name = name;
         this.images = images; //nested images srcs and alts
         this.description = description;
@@ -38,6 +40,7 @@ class ProductItem {
 //keeping Products[0] as placeholder, always
 const Products = [
     new ProductItem(
+        'placeholder',
         'Item Name',
         [
             {
@@ -50,14 +53,14 @@ const Products = [
 ];
 
 // this function adds a product to the array of products,
-function addProduct(newName, newImages, newDescription) {
-    if (!newName || !newImages || !newDescription) {
+function addProduct(newId, newName, newImages, newDescription) {
+    if (!newId || !newName || !newImages || !newDescription) {
         console.log('this is the placeholder product, please input arguments');
         return;
 }
 
 const productExists = Products.some(product => 
-    product.name === newName
+    product.id === newId
 );
 
 if (productExists) {
@@ -65,7 +68,7 @@ if (productExists) {
     return;
 }
 
-const product = new ProductItem(newName, newImages, newDescription);
+const product = new ProductItem(newId, newName, newImages, newDescription);
     Products.push(product);
     renderProduct(product);
 }
@@ -146,46 +149,53 @@ function renderProduct(product) {
 const newProducts = [];
 
 for (const product of newProducts) {
-    addProduct(product.name, product.images, product.description);
+    addProduct(product.id, product.name, product.images, product.description);
 }
 // this is for manually adding products, i threw some pictures in to test it, we can delete them later.
 addProduct(
+    'test-alpha',
     'Test Alpha',
     [{ src: 'assets/images/1402431.png', alt: 'Alert.' }],
     'this is a regularly scheduled broadcast of the emergency alert system. this is only a test. if this had been an actual emergency, you would have been instructed where to tune in your area for news and official information.'
 );
 
 addProduct(
-    'Second Item',
-    [{ src: 'assets/images/image.png', alt: 'Second Item' }],
+    'test-beta',
+    'Test Beta',
+    [{ src: 'assets/images/image.png', alt: 'Test Beta' }],
     'Second description'
 );
 addProduct(
-    'Third Item',
-    [{ src: 'assets/images/tim.png', alt: 'Third Item' }],
+    'test-gamma',
+    'Test Gamma',
+    [{ src: 'assets/images/tim.png', alt: 'Test Gamma' }],
     'Third description'
 );
 addProduct(
-    'The Fourth Wah.',
+    'test-delta',
+    'Test Delta',
     [{ src: 'assets/images/1251757.jpg', alt: 'The Fourth Wah.' }],
     'Fourth description'
 );
 // the breakpoint you set up for the grid is working perfectly. 
 addProduct(
-    'Fifth Item',
-    [{ src: 'assets/images/51757.jpg', alt: 'Fifth Item' }],
+    'test-epsilon',
+    'Test Epsilon',
+    [{ src: 'assets/images/51757.jpg', alt: 'Test Epsilon ' }],
     'Fifth description'
 );
-
+// defining a cart storage key to use in localStorage for saving cart items,
+// added in a function to add items to the cart and a function to render the cart items on the page.
 const CART_STORAGE_KEY = 'nanashi_cart';
 
 function addToCart(product) {
     const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-    const existingItem = cart.find(item => item.name === product.name);
+    const existingItem = cart.find(item => item.id === product.id);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
         cart.push({
+            id: product.id,
             name: product.name,
             images: product.images,
             description: product.description,
